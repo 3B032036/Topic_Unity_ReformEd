@@ -12,13 +12,11 @@ public class FirstPersonCamera : MonoBehaviour
     Vector2 viewInput;
     public Transform player;
     NetworkCharacterControllerPrototypeCustom networkCharacterControllerPrototypeCustom;
-    ObjectNetwork objectNetwork;
     public Door door;
 
     private void Awake() {
         MainCamera = FindObjectOfType<Camera>();
         networkCharacterControllerPrototypeCustom = GetComponentInParent<NetworkCharacterControllerPrototypeCustom>();    
-        objectNetwork = FindObjectOfType<ObjectNetwork>();
         door = FindObjectOfType<Door>();
     }
 

@@ -35,9 +35,9 @@ public class NetwokRunnerHandler : MonoBehaviour
         
             if (SceneManager.GetActiveScene().name != "Start_meau"){
                 var clientTask = InitializeNetworkRunner(networkRunner,GameMode.AutoHostOrClient,GameManager.instance.GetConnectionToken(),scenevalue.roomname,NetAddress.Any(),SceneManager.GetActiveScene().buildIndex,null);
+
             }
         }
-
     }
 
     /*
@@ -131,6 +131,7 @@ public class NetwokRunnerHandler : MonoBehaviour
 
     }
     */
+
     public void OnJoinLobby(){
         //呼叫時，傳遞給client的任務是:JoinLobby
         var clientTask = JoinLobby();
@@ -140,7 +141,6 @@ public class NetwokRunnerHandler : MonoBehaviour
         string lobbyID = "OurLobbyID";
         Debug.Log($"JoinLobby");
         var result  = await networkRunner.JoinSessionLobby(SessionLobby.Custom, lobbyID);//result = 加入大廳後抓取的參數(自訂,房間名稱)
-
         if (!result.Ok){ //如果result存在成功讀取：
             Debug.LogError($"尚未加入大廳{lobbyID}"); 
         }else{
@@ -151,12 +151,14 @@ public class NetwokRunnerHandler : MonoBehaviour
     //創建遊戲
     public void CreateGame(string sessionName, string sceneName){
         Debug.Log($"創建{sessionName} 場景{sceneName} 建置細節{SceneUtility.GetBuildIndexByScenePath($"scenes/{sceneName}")}");
+        Utils.gamemode_ = "Host";
         var clientTask = InitializeNetworkRunner(networkRunner,GameMode.Host,GameManager.instance.GetConnectionToken(),sessionName,NetAddress.Any(),SceneUtility.GetBuildIndexByScenePath($"Scenes/{sceneName}"),null);
     }
 
     //玩家加入遊戲
     public void JoinGame(SessionInfo sessionInfo){
         Debug.Log($"加入session{sessionInfo.Name}");
+        Utils.gamemode_ = "Client";
         var clientTask = InitializeNetworkRunner(networkRunner,GameMode.Client,GameManager.instance.GetConnectionToken(),sessionInfo.Name,NetAddress.Any(),SceneManager.GetActiveScene().buildIndex,null);
     }
 }

@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 6768308288645719519}
   - component: {fileID: 1394416767571001057}
   - component: {fileID: 3979910306853567547}
+  - component: {fileID: 703515570999171959}
   m_Layer: 0
   m_Name: player_PF
   m_TagString: Untagged
@@ -199,6 +200,7 @@ MonoBehaviour:
   - {fileID: 77868403266525300}
   - {fileID: 2865878120542305818}
   - {fileID: 1394416767571001057}
+  - {fileID: 703515570999171959}
   SimulationBehaviours: []
 --- !u!114 &77868403266525300
 MonoBehaviour:
@@ -306,8 +308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  objectNetwork: {fileID: 0}
   door: {fileID: 0}
+  playerRay: {fileID: 0}
 --- !u!81 &3979910306853567547
 AudioListener:
   m_ObjectHideFlags: 0
@@ -316,6 +318,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062824522075858094}
   m_Enabled: 1
+--- !u!114 &703515570999171959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062824522075858094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42548513dc2a4054688fd3c18801f2fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  Camera: {fileID: 4958087288557081002}
+  MaxUseDistance: 5
 --- !u!1 &5786305582216255632
 GameObject:
   m_ObjectHideFlags: 0

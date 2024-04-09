@@ -1,17 +1,17 @@
-Library: D:\學校資料夾\#專題\專案\Mutuk\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+Library: D:\GitHub\Topic_Unity_ReformEd\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --platform=Windows
 --backend=burst-llvm-14
---target=X64_SSE2
+--target=AVX2
 --global-safety-checks-setting=Off
 --meta-data-generation=False
 --dump=Function
 --float-precision=Standard
 --linker-options=PdbAltPath="Mutuk_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=D:\學校資料夾\#專題\專案\Mutuk\Temp\Burst
+--temp-folder=D:\GitHub\Topic_Unity_ReformEd\Temp\Burst
 --key-folder=D:/Unity/Editor/Hub/Editor/2022.3.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=D:\學校資料夾\#專題\專案\Mutuk\Library\Burst
---output=D:\學校資料夾\#專題\專案\Mutuk\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--decode-folder=D:\GitHub\Topic_Unity_ReformEd\Library\Burst
+--output=D:\GitHub\Topic_Unity_ReformEd\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -45,17 +45,17 @@ Library: D:\學校資料夾\#專題\專案\Mutuk\Temp\BurstOutput\Data\Plugins\x
 --method=Unity.Jobs.IJobExtensions+JobStruct`1[[Unity.Collections.NativeStream+ConstructJob, Unity.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::Execute(Unity.Collections.NativeStream+ConstructJob&, Unity.Collections, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|System.IntPtr, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089|Unity.Jobs.LowLevel.Unsafe.JobRanges&, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null|System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089)--b78f808503c8b5fe97a83e833bd5871d
 --platform=Windows
 --backend=burst-llvm-14
---target=AVX2
+--target=X64_SSE2
 --global-safety-checks-setting=Off
 --meta-data-generation=False
 --dump=Function
 --float-precision=Standard
 --linker-options=PdbAltPath="Mutuk_Data/Plugins/x86_64/lib_burst_generated.pdb"
 --generate-link-xml=Temp\burst.link.xml
---temp-folder=D:\學校資料夾\#專題\專案\Mutuk\Temp\Burst
+--temp-folder=D:\GitHub\Topic_Unity_ReformEd\Temp\Burst
 --key-folder=D:/Unity/Editor/Hub/Editor/2022.3.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport
---decode-folder=D:\學校資料夾\#專題\專案\Mutuk\Library\Burst
---output=D:\學校資料夾\#專題\專案\Mutuk\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
+--decode-folder=D:\GitHub\Topic_Unity_ReformEd\Library\Burst
+--output=D:\GitHub\Topic_Unity_ReformEd\Temp\BurstOutput\Data\Plugins\x86_64\lib_burst_generated
 --pdb-search-paths=Temp/ManagedSymbols/
 
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10

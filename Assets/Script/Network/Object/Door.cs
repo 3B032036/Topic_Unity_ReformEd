@@ -7,35 +7,35 @@ using System;
 
 public class Door : NetworkBehaviour
 {
-    [SerializeField]
-    //private float bulletSpeed = 5f;
-    public bool DoorIsHited ;
+    CharacterMovementHandler characterMovementHandler;
+
+    
     [Networked(OnChanged = nameof(OnDoorChanged))] public NetworkBool DoorState {get; set;}
+    [SerializeField] public string netObj_ID;
+    
     private void Awake() {
-        
+
     }
     private void Start() {
-        DoorState = false;
+        characterMovementHandler = FindObjectOfType<CharacterMovementHandler>();
     }
 
 
     public override void FixedUpdateNetwork()
     {
-        if (DoorIsHited == true ){
-            DoorStateChanged();
-        }
+        
     }
+
     public void DoorStateChanged(){
         DoorState = !DoorState;
     }
 
     public static void OnDoorChanged(Changed<Door> changed){
+        print( $"NetworkObject_{changed.Behaviour.netObj_ID}");
         if (changed.Behaviour.DoorState == true)
             changed.Behaviour.transform.position += 5f * changed.Behaviour.transform.up;
-            changed.Behaviour.DoorIsHited = false;
 
         if (changed.Behaviour.DoorState == false)
             changed.Behaviour.transform.position -= 5f * changed.Behaviour.transform.up;
-            changed.Behaviour.DoorIsHited = false;
     }
 }

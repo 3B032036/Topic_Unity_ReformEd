@@ -15,6 +15,8 @@ public class info_Update_Game : MonoBehaviour
     public NetworkRunner networkRunner;
     Door door ;
     
+    CharacterMovementHandler characterMovementHandler;
+    
     void Start()
     {
         //抓物件下的Component：Text，以方便改變他要顯示的文字
@@ -23,6 +25,7 @@ public class info_Update_Game : MonoBehaviour
         door_info = GameObject.Find("room_index_print").GetComponent<Text>();
         networkRunner = FindObjectOfType<NetworkRunner>();
         door = FindObjectOfType<Door>();
+        characterMovementHandler = FindObjectOfType<CharacterMovementHandler>();
     }
 
     void Update()
@@ -30,6 +33,7 @@ public class info_Update_Game : MonoBehaviour
         //將NetworkRunner的房間狀態回傳到room_info上，並更改其文字顯示
         //room_info.text = "房間名稱：" + networkRunner.SessionInfo.Name + "\n" +"玩家數量：" +networkRunner.SessionInfo.PlayerCount;
         if (Utils.playerIsJoin == true)
-            door_info.text = $"DoorIsHited = {door.DoorIsHited} \n  DoorState = {door.DoorState}";
+            door_info.text = $"DoorState = {door.DoorState} \n 遊戲方：{Utils.gamemode_}";
+            print($"{Utils.gamemode_}");
     }
 }

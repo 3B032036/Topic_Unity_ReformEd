@@ -16,5 +16,6 @@ public static class Utils{
     }
     
     public static bool playerIsJoin;
+    public static string gamemode_;
 }
 

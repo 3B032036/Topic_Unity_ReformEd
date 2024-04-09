@@ -24,16 +24,18 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (Object.HasInputAuthority)
         {
             Local = this;
+            Utils.playerIsJoin = true;
 
             //設定本地玩家模型的圖層
             //Utils.SetRenderLayerInChildren(playerModel, LayerMask.NameToLayer("localplayermodel"));
 
             //禁用主相機
-            Camera.main.gameObject.SetActive(false);
+            //Camera.main.gameObject.SetActive(false);
             Debug.Log("生成本地玩家");
         }
         else
         {
+            Utils.playerIsJoin = true;
             //如果我們不是本地玩家，停用相機
             Camera localCamera = GetComponentInChildren<Camera>();
             localCamera.enabled = false;

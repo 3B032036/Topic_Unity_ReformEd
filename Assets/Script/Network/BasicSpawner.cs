@@ -67,8 +67,6 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer){
             //為玩家獲取Token
             int playerToken = GetPlayerToken(runner,player);
-
-            Utils.playerIsJoin = true;
             
             Debug.Log($"OnPlayerJoined加入伺服器.連線Token:{playerToken}");
 
@@ -98,11 +96,11 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
     
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        if (!runner.IsServer) { return; }
         //當玩家離開
         if (playerList.TryGetValue(player, out NetworkPlayer networkPlayer)){
             print("TryGetValue");
             //runner.Despawn(networkPlayer); //玩家物件消除
-            
             playerList.Remove(player); //將玩家從清單內刪除
             networkPlayer.PlayerLeft(player);
         }
@@ -126,7 +124,7 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
     public void OnConnectedToServer(NetworkRunner runner) { 
-        Utils.playerIsJoin = true;
+        
     }
     public void OnDisconnectedFromServer(NetworkRunner runner) { }
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }

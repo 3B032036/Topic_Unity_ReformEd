@@ -13,16 +13,18 @@ public class CharacterInputHandler : MonoBehaviour
     bool isJumpButtonPressed = false;
     bool isUseButtonPressed = false;
     string hitObject;
-
-    ObjectNetwork objectNetwork;
     CharacterMovementHandler characterMovementHandler;
     bool escPress;
+    Camera localCamera;
+    //public Door door;
+
 
 
     private void Awake() {
         characterMovementHandler = GetComponent<CharacterMovementHandler>();
         LocalCamera = GetComponentInChildren<FirstPersonCamera>();
-        objectNetwork = FindObjectOfType<ObjectNetwork>();
+        localCamera = GetComponentInChildren<Camera>();
+        //door = FindObjectOfType<Door>();
     }
 
     // Start is called before the first frame update
@@ -53,7 +55,6 @@ public class CharacterInputHandler : MonoBehaviour
 
         if (Input.GetKeyDown("e")){
             isUseButtonPressed = true;
-            print("Input-isJumpButtonPressed-真");
         }
         
         if (Input.GetKeyDown(KeyCode.Escape)){
