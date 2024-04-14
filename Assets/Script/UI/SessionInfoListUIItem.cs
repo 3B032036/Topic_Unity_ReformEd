@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using Fusion;
 using TMPro;
 using System;
-using Unity.VisualScripting;
 
 public class SessionInfoListUIItem : MonoBehaviour
 {
