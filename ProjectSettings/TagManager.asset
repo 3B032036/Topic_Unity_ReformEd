@@ -9,6 +9,13 @@ TagManager:
   - nulltype
   - block
   - UI
+  - JudgeBox
+  - Expression Area
+  - Expression Statement Puzzle
+  - Execute Area
+  - Execute Statement Puzzle
+  - Conditional Area
+  - Conditional Statement Puzzle
   layers:
   - Default
   - TransparentFX

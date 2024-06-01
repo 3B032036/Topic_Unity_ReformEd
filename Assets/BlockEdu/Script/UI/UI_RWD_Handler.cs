@@ -77,7 +77,7 @@ public class UI_RWD_Handler : MonoBehaviour
 
                 break;
             case "Height, Plus":
-                parent__rectTransform.sizeDelta = new Vector2(parent__rectTransform.rect.width , parent__rectTransform.rect.height + Mathf.Abs( TargetValue));
+                nulltype_rectTransform.sizeDelta = new Vector2(nulltype_rectTransform.rect.width , nulltype_rectTransform.rect.height + Mathf.Abs( TargetValue));
                 print($"AdjustSize=>TargetValue{TargetValue}nulltype_rectTransform.rect.height.sizeDelta{nulltype_rectTransform.rect.height}");
                 break;  
 
@@ -88,31 +88,12 @@ public class UI_RWD_Handler : MonoBehaviour
 
                 break;
             case "Width, Plus":
-                parent__rectTransform.sizeDelta = new Vector2(parent__rectTransform.rect.width + Mathf.Abs(nulltype_rectTransform.rect.width - TargetValue), parent__rectTransform.rect.height);
+                nulltype_rectTransform.sizeDelta = new Vector2(nulltype_rectTransform.rect.width + Mathf.Abs(nulltype_rectTransform.rect.width - TargetValue), nulltype_rectTransform.rect.height);
                 print($"AdjustSize=>TargetValue{TargetValue}nulltype_rectTransform.rect.height.sizeDelta{nulltype_rectTransform.rect.height}");
                 break;  
         }
 
         lastWidth = TargetValue;
-
-        /*
-        Vector2 newSize = new Vector2(TargetValue, nulltype_rectTransform.sizeDelta.y);
-        nulltype_rectTransform.sizeDelta = newSize;
-        
-        // 如果新的寬度大於上一次的寬度，將父物件C的寬度增加
-        if (TargetValue > lastWidth)
-        {
-            print("width > lastWidth");
-            parent__rectTransform.sizeDelta = new Vector2(parent__rectTransform.sizeDelta.x + (TargetValue - lastWidth), parent__rectTransform.sizeDelta.y);
-        }
-        // 如果新的寬度小於上一次的寬度，將父物件C的寬度減少
-        else if (TargetValue < lastWidth)
-        {
-            print("width < lastWidth");
-            parent__rectTransform.sizeDelta = new Vector2(parent__rectTransform.sizeDelta.x - (lastWidth - TargetValue), parent__rectTransform.sizeDelta.y);
-        }
-        lastWidth = TargetValue;// 不論是否改變了父物件的寬度，都更新 lastWidth 為這一次的寬度
-        */
     }
 
     public void RWDJudge(GameObject newInstance){

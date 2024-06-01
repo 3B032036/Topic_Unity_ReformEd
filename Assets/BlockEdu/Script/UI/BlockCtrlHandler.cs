@@ -27,6 +27,39 @@ public class BlockCtrlHandler : MonoBehaviour
         
     }
 
+    public void SetTagAllChildren(Transform parent) 
+    {
+        if (parent.childCount > 0) 
+        {
+            foreach (Transform child in parent) 
+            {
+                if (child.name.Contains("ConditionalArea"))
+                {
+                    child.tag = "Conditional Area";
+                }
+                else if (child.name.Contains("ExecuteArea"))
+                {
+                    child.tag = "Execute Area";
+                }
+                else if (child.name.Contains("ExpressionArea"))
+                {
+                    child.tag = "Expression Area";
+                }
+                SetTagAllChildren(child);
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     public void BlockSelectJudge(GameObject SelectGameObject)
     {   
         //調用傳進來的GameObject值，裡面的UIOutlineController，直接設定他的外框顏色，表示選定

@@ -87,6 +87,7 @@ public class DragBlock : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, 
         while (parent != null && !parent.CompareTag("Canvas"))
         {
             parent = parent.parent;
+
         }
 
         if (parent != null)
