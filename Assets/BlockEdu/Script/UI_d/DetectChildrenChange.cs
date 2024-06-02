@@ -63,7 +63,7 @@ public class DetectChildrenChange : MonoBehaviour
     private IEnumerator CallParentOnChildrenChanged()
     {
         yield return null; // 等待一幀，確保子物件的變化已經完全處理完畢
-        Debug.LogError("CallParentOnChildrenChanged");
+        //Debug.LogError("CallParentOnChildrenChanged");
         Transform parent = transform.parent;
         while (parent != null && parent.name != "Content")
         {

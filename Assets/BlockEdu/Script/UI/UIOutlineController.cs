@@ -36,21 +36,27 @@ public class UIOutlineController : MonoBehaviour, IPointerEnterHandler, IPointer
     // 當滑鼠移入時，將描邊效果改為綠色並啟用
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!IsSelectedGameObject){SetOutline(true, Color.green);}
+
+        
+        /*-------以下內容已於6/2刪除------*/
+        //if(!IsSelectedGameObject){SetOutline(true, Color.green);}
     }
 
     // 當滑鼠移出時，如果物件不是最後一次被點擊的物件，則將描邊效果關閉
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(!IsSelectedGameObject){ResetOutline();}
+
+        //if(!IsSelectedGameObject){ResetOutline();}
             
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {   
-        print("OnPointerClick--IsSelectedGameObject = true");
-        IsSelectedGameObject = true;
-        blockCtrlHandler.BlockSelectJudge(this.gameObject);
+        
+        /*-------以下內容已於6/2刪除------*/
+        //print("OnPointerClick--IsSelectedGameObject = true");
+        //IsSelectedGameObject = true;
+        //blockCtrlHandler.BlockSelectJudge(this.gameObject);
         //SetOutline(true, Color.blue);
     }
 

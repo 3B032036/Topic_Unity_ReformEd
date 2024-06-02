@@ -28,7 +28,7 @@ public class StartPuzzle : MonoBehaviour
         if(ExecuteChildCount < 0)
         {
             TextAppear("Start裡面沒有方塊");
-            GameObject.Find("StaticText");//???
+            //GameObject.Find("StaticText");//???
             return;
         }
         else

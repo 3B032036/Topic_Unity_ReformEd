@@ -1,13 +1,18 @@
+/*-------以下內容已於6/2刪除------*/
+/*
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UI_RWD_Handler : MonoBehaviour
 {
-    /*------------------------------------------------------------
-    主要功能：
-    調整附帶此腳本的物件之長寬(總稱自適應)
-    --------------------------------------------------------------*/
+    //------------------------------------------------------------
+    //主要功能：
+    //調整附帶此腳本的物件之長寬(總稱自適應)
+    //------------------------------------------------------------
 
     public RectTransform parent__rectTransform;
     public RectTransform nulltype_rectTransform;
@@ -50,21 +55,21 @@ public class UI_RWD_Handler : MonoBehaviour
     }
 
 
-    /*-----------------------------
-        兩種nulltype情況
-        1.調整寬度   2.調整高度
-    ------------------------------*/
+    //-----------------------------
+    //    兩種nulltype情況
+    //    1.調整寬度   2.調整高度
+    //------------------------------
     public void AdjustSize(string AdjustHeightOrWidth, string AdjustOption, float TargetValue)//調整大小(調整模式, 調整數值)
     {
         //AdjustHeightOrWidth
-        /*----------------------------
-           Height:高度   Width:寬度
-        ------------------------------*/
+        //----------------------------
+        //   Height:高度   Width:寬度
+        //------------------------------
 
         //AdjustOption
-        /*---------------------------------------------
-            Minus:變小  HoldAdd:保持不變    Plus:變大
-        -----------------------------------------------*/
+        //---------------------------------------------
+        //    Minus:變小  HoldAdd:保持不變    Plus:變大
+        //-----------------------------------------------
 
         
         string Adjust_All = $"{AdjustHeightOrWidth}, {AdjustOption}";
@@ -111,9 +116,9 @@ public class UI_RWD_Handler : MonoBehaviour
         
         
         #region 子物件判斷=>_AdjustOption
-        /*---------------------------------------------
-         功能：執行子物件數量判斷，傳回_AdjustOption數值
-        ----------------------------------------------*/
+        //---------------------------------------------
+        // 功能：執行子物件數量判斷，傳回_AdjustOption數值
+        //----------------------------------------------
 
             // 子物件數量
             int childCount = transform.childCount;
@@ -147,9 +152,9 @@ public class UI_RWD_Handler : MonoBehaviour
 
 
         #region 選取物件類別判斷=>_AdjustHeightOrWidth
-        /*---------------------------------------------
-         功能：執行子物件類型判斷，傳回_AdjustHeightOrWidth數值
-        ----------------------------------------------*/
+        //---------------------------------------------
+        // 功能：執行子物件類型判斷，傳回_AdjustHeightOrWidth數值
+        //----------------------------------------------
             print($"blockCtrlHandler.lastSelectGameObject_BlockType()=>{blockCtrlHandler.lastSelectGameObject_BlockType()}");
             switch (blockCtrlHandler.lastSelectGameObject_BlockType()){
                 case "Judge":
@@ -171,3 +176,5 @@ public class UI_RWD_Handler : MonoBehaviour
         #endregion
     }
 }
+
+*/

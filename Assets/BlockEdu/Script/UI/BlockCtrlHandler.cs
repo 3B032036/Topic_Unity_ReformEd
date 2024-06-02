@@ -7,7 +7,9 @@ public class BlockCtrlHandler : MonoBehaviour
 {
     public GameObject lastSelectGameObject;
 
-    public UI_RWD_Handler ui_rwd_handler;
+
+    /*-------以下內容已於6/2刪除------*/
+    //public UI_RWD_Handler ui_rwd_handler;
 
 
     private void Awake() {
@@ -59,7 +61,8 @@ public class BlockCtrlHandler : MonoBehaviour
 
 
 
-
+    /*-------以下內容已於6/2刪除------*/
+    /*
     public void BlockSelectJudge(GameObject SelectGameObject)
     {   
         //調用傳進來的GameObject值，裡面的UIOutlineController，直接設定他的外框顏色，表示選定
@@ -67,12 +70,12 @@ public class BlockCtrlHandler : MonoBehaviour
         print($"lastClicked傳到BlockCtrlHandler了!!他是{SelectGameObject}!!!");
 
 
-        /*-----------------------------------------------------------------------------------------
-        這邊的邏輯是:
-        1.如果最後一個選擇的物件是空的，那就將lastSelectGameObject物件賦予傳進來的物件SelectGameObject
-        2.如果不是空的，就檢視新傳進來的物件，是否跟上一個lastSelectGameObject物件一樣，不一樣就執行動作
-          a)把IsSelectedGameObject設為假   b)把舊的物件上的邊框關掉  c)將lastSelectGameObject賦予新值
-        -------------------------------------------------------------------------------------------*/
+        //-----------------------------------------------------------------------------------------
+        //這邊的邏輯是:
+        //1.如果最後一個選擇的物件是空的，那就將lastSelectGameObject物件賦予傳進來的物件SelectGameObject
+        //2.如果不是空的，就檢視新傳進來的物件，是否跟上一個lastSelectGameObject物件一樣，不一樣就執行動作
+        //  a)把IsSelectedGameObject設為假   b)把舊的物件上的邊框關掉  c)將lastSelectGameObject賦予新值
+        //-------------------------------------------------------------------------------------------
         if(lastSelectGameObject == null){
             lastSelectGameObject = SelectGameObject;
         }else if(lastSelectGameObject != null){
@@ -87,6 +90,7 @@ public class BlockCtrlHandler : MonoBehaviour
             }
         }
 
+        
         if (lastSelectGameObject != null && lastSelectGameObject.name.Contains("block")){
             transform.GetComponent<BlockUIHandler>().DelButton.interactable = true;//禁用與變灰刪除按鈕
         }else{
@@ -113,11 +117,11 @@ public class BlockCtrlHandler : MonoBehaviour
     }
 
     public string lastSelectGameObject_BlockType(){
-        /*------------------------------------------------------------
-        主要功能:
-        判斷使用者最後一個選取的物件的類別、名子，並傳回相對應的類別名稱，
-        以便上面節省代碼過多、可讀性低的問題。
-        --------------------------------------------------------------*/
+        //------------------------------------------------------------
+        //主要功能:
+        //判斷使用者最後一個選取的物件的類別、名子，並傳回相對應的類別名稱，
+        //以便上面節省代碼過多、可讀性低的問題。
+        //--------------------------------------------------------------
 
         if(lastSelectGameObject.tag == "nulltype" && lastSelectGameObject.name.Contains("Judge")){
             //只能放入一個方塊的類型
@@ -139,5 +143,5 @@ public class BlockCtrlHandler : MonoBehaviour
         }
         
     }
-    
+    */
 }
