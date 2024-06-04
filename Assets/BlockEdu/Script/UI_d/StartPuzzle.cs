@@ -45,6 +45,10 @@ public class StartPuzzle : MonoBehaviour
                     {
                         forpuzzle.Execute();
                     }
+                    else if((ExecuteArea.transform.GetChild(i).TryGetComponent<VariablePuzzle>(out VariablePuzzle variablePuzzle)))
+                    {
+                        variablePuzzle.Execute();
+                    }
                 }
             }
         }

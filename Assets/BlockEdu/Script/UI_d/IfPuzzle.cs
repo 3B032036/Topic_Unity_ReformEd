@@ -15,10 +15,10 @@ public class IfPuzzle : MonoBehaviour
 
     public void Execute()
     {
-        Debug.Log("���b����If�{��");
+        Debug.Log("iF已執行");
         if(ConditionalArea.transform.childCount == 0)
         {
-            ReturnErrorToStartBox("��if�S��P�_����");
+            ReturnErrorToStartBox("if無執行任何方塊");
             return;
         }
         if (ConditionalArea.transform.GetChild(0).TryGetComponent<ConditonalPuzzle>(out ConditonalPuzzle ConditonalPuzzle))
@@ -32,7 +32,7 @@ public class IfPuzzle : MonoBehaviour
 
     public int GetHowMuchChild()
     {
-        return ExecuteArea.transform.childCount - 1;
+        return ExecuteArea.transform.childCount - 1; //這邊為了跟for做一致索引值，所以將子物件索引值-1，一致化
     }
 
     public void TrueExecute(int childcount)

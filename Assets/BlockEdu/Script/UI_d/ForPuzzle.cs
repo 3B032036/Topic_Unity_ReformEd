@@ -15,20 +15,20 @@ public class ForPuzzle : MonoBehaviour
 
     public void Execute()
     {
-        Debug.Log("���b����For�{��");
+        Debug.Log("已開始執行For");
         bool IsExecute = IsTrueExecute();
         if (IsExecute == true)
         {
             if (RepeatCounter.transform.childCount == 0)
             {
-                ReturnErrorToStartPuzzle("��For�S��B�⦡��");
+                ReturnErrorToStartPuzzle("For裡面並無子物件");
                 return;
             }
             if (RepeatCounter.transform.GetChild(0).TryGetComponent<ExpressionPuzzle>(out ExpressionPuzzle expressionpuzzle))
             {
                 for (int i = 1; i <= expressionpuzzle.Expression(); i++)
                 {
-                    Debug.Log("For�w����" + i + "��");
+                    Debug.Log("For開始執行" + i + "次");
                     int ExecuteChildCount = ExecuteArea.transform.childCount - 1;
                     if (ExecuteChildCount > 0)
                     {
@@ -40,9 +40,13 @@ public class ForPuzzle : MonoBehaviour
                                 {
                                     ifpuzzle.Execute();
                                 }
-                                else if ((ExecuteArea.transform.GetChild(i).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
+                                else if ((ExecuteArea.transform.GetChild(j).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
                                 {
                                     forpuzzle.Execute();
+                                }
+                                else if((ExecuteArea.transform.GetChild(j).TryGetComponent<VariablePuzzle>(out VariablePuzzle variablePuzzle)))
+                                {
+                                    variablePuzzle.Execute();
                                 }
                             }
                         }

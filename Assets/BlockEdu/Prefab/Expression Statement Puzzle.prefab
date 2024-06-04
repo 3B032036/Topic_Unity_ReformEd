@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Number: 0
-  text: {fileID: 0}
+  inputField: {fileID: 9168701634503204050}
 --- !u!114 &4225751803789815837
 MonoBehaviour:
   m_ObjectHideFlags: 0
