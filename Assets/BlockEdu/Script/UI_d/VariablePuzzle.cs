@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using ExitGames.Client.Photon.StructWrapping;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VariablePuzzle : MonoBehaviour
 {   
+
+    enum VariablePuzzle_Type{ Get, Set }
+    [SerializeField] VariablePuzzle_Type variablePuzzle_Type;
+
     //之後會大改的變數積木
 
     //[SerializeField] private int Variablefixed;
     [SerializeField] private Text VarToText;//顯示物件上的文字
     [SerializeField] private GameObject ExpressionArea_1;
-    [SerializeField] VariableHandler variableHandler;//需要自己拖曳
+    [SerializeField] VariableManager variableManager;//需要自己拖曳
+    [SerializeField] Dropdown variable_Dropdown;//需要自己拖曳
+    [SerializeField] private int savedIndex; // 儲存目前已選擇的選項索引
+    [SerializeField] Text print_var_text;
 
-    //[SerializeField] private Dropdown dropdown; //之後在新增功能
 
     void Start()
     {
-        variableHandler = GameObject.Find("VariableManager").GetComponent<VariableHandler>();
+        
+        variableManager = GameObject.Find("VariableManager").GetComponent<VariableManager>();
 
         if (transform.name.Contains("Set") || transform.name.Contains("Get"))
         {
@@ -26,12 +35,64 @@ public class VariablePuzzle : MonoBehaviour
         {
             transform.tag = "Expression Statement Puzzle";
         }
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
+        
+        UpdateDropdownOption();
+        SaveCurrentSelection();
+
+
     }
 
     void Update()
     {
-        
+
+    }
+
+    // 儲存當前已選擇的選項
+    public void SaveCurrentSelection()
+    {
+        savedIndex = variable_Dropdown.value;
+    }
+
+    // 恢復儲存的選項
+    public void RestoreSavedSelection()
+    {
+        if(savedIndex < variable_Dropdown.options.Count)
+        {
+            variable_Dropdown.value = savedIndex;
+            variable_Dropdown.RefreshShownValue();
+        }
+        else
+        {
+            Debug.LogWarning("儲存的索引超出新選項的範圍");
+        }
+    }
+
+    public void UpdateDropdownOption()
+    {
+        if (variable_Dropdown != null)
+        {
+            //將VariableManager中之變數放進去dropdrop選項
+
+            // 清空原有的選項
+            variable_Dropdown.ClearOptions();
+
+            // 取得所有的鍵
+            Dictionary<string, int> variables = variableManager.GetVariables();
+            List<string> options = new List<string>();
+
+            // 遍歷所有變量，建立選項列表
+            foreach (KeyValuePair<string, int> entry in variables)
+            {
+                string option = $"{entry.Key}";
+                print($"{entry.Key}: {entry.Value}");
+                options.Add(option);
+            }
+            //更新 Dropdown 選項
+            variable_Dropdown.AddOptions(options);
+
+        }
+        RestoreSavedSelection();
     }
 
     public void Execute(){
@@ -39,13 +100,42 @@ public class VariablePuzzle : MonoBehaviour
         
         if (ExpressionArea_1 != null && ExpressionArea_1.transform.childCount > 0)
         {   
-            variableHandler.var1 = ExpressionArea_1.GetComponentInChildren<ExpressionPuzzle>().Expression();
-            print($"顯示變數var1值為{variableHandler.var1}");
+            var expressionPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ArrayPuzzle>();
+
+            int var_temp = 0;
+            if (expressionPuzzle != null)
+            {
+                var_temp = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                var_temp = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                var_temp = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                var_temp = 0; // 如果都為 null，設置為 0
+            }
+
+            print($"var_temp={var_temp}");
+
+            string variableName = variable_Dropdown.options[variable_Dropdown.value].text;// 取得選取的變數名
+            variableManager.SetVariable(variableName, var_temp); // 呼叫 GetVariable 方法取得變數值
+            print($"variableName{variableName}=var_temp{var_temp}");
             
         }
         else if (transform.name.Contains("Get"))
         {
-            print($"目前var1值為{variableHandler.var1}");
+            string variableName = variable_Dropdown.options[variable_Dropdown.value].text;// 取得選取的變數名
+            int variableValue = variableManager.GetVariable(variableName); // 呼叫 GetVariable 方法取得變數值
+            print($"選取的變數名稱: {variableName}, 變數值: {variableValue}");
+            
+            GameObject.Find("PrintPanel").transform.Find("IndexPanel").GetComponentInChildren<Text>().text += $" 變數 {variableName} 值為 {variableValue}\r\n";
         }
         else
         {
@@ -55,69 +145,21 @@ public class VariablePuzzle : MonoBehaviour
     }
 
     public int Expression()
-    {
-        print($"目前var值為{variableHandler.var1}");
-        return variableHandler.var1;//set
+    {   
+        string variableName = variable_Dropdown.options[variable_Dropdown.value].text;// 取得選取的變數名
+        int variableValue = variableManager.GetVariable(variableName); // 呼叫 GetVariable 方法取得變數值
+        print($"選取的變數名稱: {variableName}, 變數值: {variableValue}");
+        return variableValue;
     }
 
-    /*
-    private Dictionary<string, int> variables = new Dictionary<string, int>();
-
-    // 創建變數
-    public void CreateVariable(string name, int initialValue = 0)
+    public void ChooseType()
     {
-        if (!variables.ContainsKey(name))
+        switch (variablePuzzle_Type)
         {
-            variables[name] = initialValue;
-            Debug.Log($"變數 {name} 已創建，初始值為 {initialValue}");
-        }
-        else
-        {
-            Debug.LogError($"變數 {name} 已存在");
+            case VariablePuzzle_Type.Get:
+                print("123");
+                break;
         }
     }
-
-    // 修改變數
-    public void SetVariable(string name, int value)
-    {
-        if (variables.ContainsKey(name))
-        {
-            variables[name] = value;
-            Debug.Log($"變數 {name} 的值已設置為 {value}");
-        }
-        else
-        {
-            Debug.LogError($"變數 {name} 不存在");
-        }
-    }
-
-    // 獲取變數值
-    public int GetVariable(string name)
-    {
-        if (variables.ContainsKey(name))
-        {
-            return variables[name];
-        }
-        else
-        {
-            Debug.LogError($"變數 {name} 不存在");
-            return 0;
-        }
-    }
-
-    // 刪除變數
-    public void DeleteVariable(string name)
-    {
-        if (variables.ContainsKey(name))
-        {
-            variables.Remove(name);
-            Debug.Log($"變數 {name} 已刪除");
-        }
-        else
-        {
-            Debug.LogError($"變數 {name} 不存在");
-        }
-    }
-    */
 
 }

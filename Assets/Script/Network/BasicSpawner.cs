@@ -28,7 +28,6 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
     private void Awake() {
         //房間清單類別物件->依照類別抓取
         sessionListHandler = FindObjectOfType<SessionListHandler>(true);
-        
         mapTokenIDWithNetworkPlayer = new Dictionary<int, NetworkPlayer>();
     }
 
@@ -96,14 +95,17 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
     
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
+        
         if (!runner.IsServer) { return; }
         //當玩家離開
         if (playerList.TryGetValue(player, out NetworkPlayer networkPlayer)){
             print("TryGetValue");
             //runner.Despawn(networkPlayer); //玩家物件消除
             playerList.Remove(player); //將玩家從清單內刪除
-            networkPlayer.PlayerLeft(player);
+            //networkPlayer.PlayerLeft(player);
         }
+        
+        
     }
 
 

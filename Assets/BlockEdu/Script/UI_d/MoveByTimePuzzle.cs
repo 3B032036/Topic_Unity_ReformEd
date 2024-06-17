@@ -8,7 +8,7 @@ public class MoveByTimePuzzle : MonoBehaviour
     void Start()
     {
         transform.tag = "Execute Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     // Update is called once per frame

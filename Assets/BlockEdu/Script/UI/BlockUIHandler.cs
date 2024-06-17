@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,22 +6,59 @@ using UnityEngine.UI;
 
 public class BlockUIHandler : MonoBehaviour
 {
-    /*-------以下內容已於6/2刪除------*/
-    //public Button DelButton;//控制面板的刪除按鈕
-    //public GameObject DestroyComfirmWindow;
 
+    //皆須自行拖曳
+    VariableManager variableManager;
+    public Button CreateVarButton;
+    public Text CreateVarPrompt;
+    public InputField CreateVarInputField;
+    public GameObject CreateVarWindow;
 
-    public BlockCtrlHandler blockCtrlHandler;
     
     private void Awake() {
-        blockCtrlHandler = transform.GetComponent<BlockCtrlHandler>();
-
-        /*-------以下內容已於6/2刪除------*/
-        //DestroyComfirmWindow.SetActive(false);
-        //DelButton = GameObject.Find("Delete").GetComponent<Button>();
-        //DelButton.interactable = false;
+        variableManager = FindObjectOfType<VariableManager>();
     }
 
+    private void Start() {
+        
+    }
+
+    public void Action_CreateVarWindow(String Action)
+    {
+        //show create cancel
+        switch (Action){
+            case "show":
+                CreateVarWindow.SetActive(true);
+                break;
+
+            case "create":
+                if(String.IsNullOrWhiteSpace(CreateVarInputField.text))
+                {
+                    CreateVarPrompt.text = "*輸入的名稱不可為空或含有空格";
+                }
+                else
+                {
+                    variableManager.AddVariable(CreateVarInputField.text);
+                    UpdateAllDropdownManagers();
+                    CreateVarWindow.SetActive(false);
+                }
+                break;
+
+            case "cancel":
+                CreateVarWindow.SetActive(false);
+                break;
+        }
+        
+    }
+
+    public void UpdateAllDropdownManagers()
+    {
+        VariablePuzzle[] variablePuzzles = FindObjectsOfType<VariablePuzzle>();
+        foreach (VariablePuzzle manager in variablePuzzles)
+        {
+            manager.UpdateDropdownOption();
+        }
+    }
 
 
 
@@ -72,7 +110,6 @@ public class BlockUIHandler : MonoBehaviour
                 Destroy(blockCtrlHandler.lastSelectGameObject);
                 DestroyComfirmWindow.SetActive(false);
                 DelButton.interactable = false;
-
                 break;
             case "Cancel":
                 DestroyComfirmWindow.SetActive(false);

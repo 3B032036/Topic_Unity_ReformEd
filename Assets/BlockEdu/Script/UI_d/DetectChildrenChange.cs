@@ -29,16 +29,16 @@ public class DetectChildrenChange : MonoBehaviour
         if (currentChildCount > lastChildCount)
         {
             Debug.Log($"物件{transform.name}子物件增加");
-            ChildChangeType = "Plus";
+            //ChildChangeType = "Plus";
         }
         else if (currentChildCount < lastChildCount)
         {
             Debug.Log($"物件{transform.name}子物件減少");
-            ChildChangeType = "Minus";
+            //ChildChangeType = "Minus";
         }
         else
         {
-            ChildChangeType = "Plus";
+            //ChildChangeType = "Plus";
         }
 
         float totalHeight = 0f;  // 用於儲存所有子物件的總高度
@@ -55,7 +55,7 @@ public class DetectChildrenChange : MonoBehaviour
         }
         print($"物件{transform.name}獲取高度{totalHeight}、寬度{totalWidth}");
         
-        GetComponent<UI_RWD_Handleer_new>().RWDJudge(this.gameObject, ChildChangeType, totalHeight, totalWidth);
+        GetComponent<UI_RWD_Handleer_new>().RWDJudge(this.gameObject, /*ChildChangeType,*/ totalHeight, totalWidth);
         lastChildCount = currentChildCount;
         StartCoroutine(CallParentOnChildrenChanged());
     }

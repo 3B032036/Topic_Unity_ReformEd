@@ -25,7 +25,7 @@ public class UI_RWD_Handleer_new : MonoBehaviour
     float Min_width;
     float Min_height;
 
-    public void RWDJudge(GameObject gameObject, string ChildChangeType, float totalHeight, float totalWidth)
+    public void RWDJudge(GameObject gameObject, /*string ChildChangeType,*/ float totalHeight, float totalWidth)
     {
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
 
@@ -38,13 +38,19 @@ public class UI_RWD_Handleer_new : MonoBehaviour
             Min_width = GetComponent<LayoutElement>().minWidth;
             Min_height = GetComponent<LayoutElement>().minHeight;
         }
-        
+
+        /*
         string _AdjustHeightOrWidth = null; // Height:高度   Width:寬度
-
         string _AdjustOption = null;//Minus:變小  HoldAdd:保持不變    Plus:變大
+        */
 
-        float _TargetValue = 0f;
+        float _TargetValue_height = 0f;
+        float _TargetValue_width = 0f;
 
+        //_TargetValue_width = totalWidth > Min_width ? Min_width + Math.Abs(Min_width - totalWidth) : Min_width;
+        //_TargetValue_height = totalHeight > Min_height ? Min_height + Math.Abs(Min_height - totalHeight) : Min_width;
+        
+        /*
         switch (ChildChangeType){
             case "Plus":
                 _AdjustOption = ChildChangeType;
@@ -53,35 +59,47 @@ public class UI_RWD_Handleer_new : MonoBehaviour
                 _AdjustOption = ChildChangeType;
                 break;
         }
+        */
 
+        
         switch (gameObject.tag){
-            case "Expression Area"://寬度
-                _AdjustHeightOrWidth = "Width";
-                _TargetValue = totalWidth > Min_width ? Min_width + Math.Abs(Min_width - totalWidth) : Min_width;
-                //if(_AdjustOption == "Minus"){_TargetValue = Min_width;}
-                print($"_TargetValue->{_TargetValue} = Min_width{Min_width}、totalWidth{totalWidth}");
+            case "Expression Area"://寬度高度
+                _TargetValue_width = totalWidth > Min_width ? Min_width + Math.Abs(Min_width - totalWidth) : Min_width;
+                _TargetValue_height = totalHeight > Min_height ? Min_height + Math.Abs(Min_height - totalHeight) : Min_height;
+                print($"Min_width={Min_width}");
+                
+                print($"_TargetValue_width->{_TargetValue_width} = Min_width{Min_width}、totalWidth{totalWidth}");
                 break;
             case "Execute Area"://高度
-                _AdjustHeightOrWidth = "Height";
-                _TargetValue = Min_height + totalHeight;
-                print($"_TargetValue->{_TargetValue} = Min_height{Min_height}+totalHeight{totalHeight}");
+                print($"transform.parent.GetComponent<RectTransform>().rect.width={transform.parent.GetComponent<RectTransform>().rect.width}");
+                print($"Min_width={Min_width}");
+                _TargetValue_width = transform.parent.GetComponent<RectTransform>().rect.width;
+                _TargetValue_height = Min_height + totalHeight;
+                print($"_TargetValue_height->{_TargetValue_height} = Min_height{Min_height}+totalHeight{totalHeight}");
 
                 break;
-            case "Conditional Area"://寬度
-                _AdjustHeightOrWidth = "Width";
-                _TargetValue = totalWidth > Min_width ? Min_width + Math.Abs(Min_width - totalWidth) : Min_width;
+            case "Conditional Area"://寬度高度
+                _TargetValue_height = Min_height + totalHeight;
+                _TargetValue_width = totalWidth > Min_width ? Min_width + Math.Abs(Min_width - totalWidth) : Min_width;
                 break;
         }
+        
 
-        AdjustSize(_AdjustHeightOrWidth, _AdjustOption, _TargetValue);
+        //AdjustSize(_AdjustHeightOrWidth, _AdjustOption, _TargetValue);
+        AdjustSize(_TargetValue_width,_TargetValue_height);
 
         
         
     }
 
 
-    public void AdjustSize(string AdjustHeightOrWidth, string AdjustOption, float TargetValue)//調整大小(調整模式, 調整數值)
+    public void AdjustSize(/*string AdjustHeightOrWidth, string AdjustOption,*/ float TargetValue_width, float TargetValue_height)//調整大小(調整模式, 調整數值)
     {
+
+        transform.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(TargetValue_width , TargetValue_height);
+
+
+
         //AdjustHeightOrWidth
         /*----------------------------
            Height:高度   Width:寬度
@@ -92,10 +110,10 @@ public class UI_RWD_Handleer_new : MonoBehaviour
             Minus:變小  HoldAdd:保持不變    Plus:變大
         -----------------------------------------------*/
 
-        
+        /*
         string Adjust_All = $"{AdjustHeightOrWidth}, {AdjustOption}";
 
-
+        
         
         switch (Adjust_All){
             case "Height, Minus":
@@ -126,7 +144,7 @@ public class UI_RWD_Handleer_new : MonoBehaviour
                 break;  
         }
 
-        
+        */
 
     }
 }

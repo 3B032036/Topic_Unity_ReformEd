@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start_meau.unity
+    guid: f0e6ba84289e684428ac8fe977366371
+  - enabled: 1
     path: Assets/Scenes/MainGame.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/test gui.unity
-    guid: 060fb9af53df9b248aa96723f6c9986c
   m_configObjects: {}

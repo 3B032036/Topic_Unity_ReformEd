@@ -52,9 +52,13 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
     public void PlayerLeft(PlayerRef player)
     {   
-        if (player == Object.InputAuthority)
-            print("玩家物件消除開始");
-            Runner.Despawn(Object);
-            print("玩家物件已消除");
+        print($"Huh?");
+
+        
+        if (player == Object.InputAuthority){
+            print($"P_{Object.Id}刪除開始");
+            //Runner.Despawn(Object);
+        }
+        
     }
 }
