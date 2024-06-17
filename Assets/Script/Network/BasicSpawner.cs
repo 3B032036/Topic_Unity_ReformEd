@@ -102,7 +102,7 @@ public class BasicSpawer : MonoBehaviour, INetworkRunnerCallbacks
             print("TryGetValue");
             //runner.Despawn(networkPlayer); //玩家物件消除
             playerList.Remove(player); //將玩家從清單內刪除
-            networkPlayer.PlayerLeft(player);
+            //networkPlayer.PlayerLeft(player);
         }
     }
 
