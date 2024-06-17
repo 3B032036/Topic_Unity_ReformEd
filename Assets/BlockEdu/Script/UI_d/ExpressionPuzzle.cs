@@ -24,12 +24,12 @@ public class ExpressionPuzzle : MonoBehaviour
 
     private void Start() {
         transform.tag = "Expression Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     private void Update()
     {
-
+        
     }
     
     //public void Execute(){
@@ -59,10 +59,28 @@ public class ExpressionPuzzle : MonoBehaviour
     {
         if (ExpressionArea_1 != null && ExpressionArea_1.transform.childCount > 0)
         {   
-            var expressionPuzzle = ExpressionArea_1.GetComponentInChildren<ExpressionPuzzle>();
-            var variablePuzzle = ExpressionArea_1.GetComponentInChildren<VariablePuzzle>();
+            var expressionPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ArrayPuzzle>();
 
-            var1 = expressionPuzzle?.Expression() ?? variablePuzzle?.Expression() ?? 0;
+            
+            if (expressionPuzzle != null)
+            {
+                var1 = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                var1 = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                var1 = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                var1 = -999; // 如果都為 null，設置為 0
+            }
+
         }
         else
         {
@@ -71,7 +89,28 @@ public class ExpressionPuzzle : MonoBehaviour
 
         if (ExpressionArea_2 != null && ExpressionArea_2.transform.childCount > 0)
         {   
-            var2 = ExpressionArea_2.GetComponentInChildren<ExpressionPuzzle>().Expression();
+            var expressionPuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<ArrayPuzzle>();
+
+            
+            if (expressionPuzzle != null)
+            {
+                var2 = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                var2 = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                var2 = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                var2 = -999; // 如果都為 null，設置為 0
+            }
+
         }
         else
         {
@@ -91,6 +130,7 @@ public class ExpressionPuzzle : MonoBehaviour
         {
             case "+":
                 CalcResult = var1 + var2;
+                print($"CalcResult{CalcResult} = var1{var1} + var2{var2}");
                 break;
             case "-":
                 CalcResult = var1 - var2;
@@ -125,6 +165,7 @@ public class ExpressionPuzzle : MonoBehaviour
                 Debug.LogError("無效的運算類型");
                 break;
         }
+        print($"CalcResult{CalcResult}");
         return CalcResult;
     }
 

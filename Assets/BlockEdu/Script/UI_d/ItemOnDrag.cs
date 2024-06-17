@@ -100,4 +100,27 @@ public class ItemOnDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragH
             }
         }
     }
+
+    public void SetTagAllChildren(Transform parent) 
+    {
+        if (parent.childCount > 0) 
+        {
+            foreach (Transform child in parent) 
+            {
+                if (child.name.Contains("ConditionalArea"))
+                {
+                    child.tag = "Conditional Area";
+                }
+                else if (child.name.Contains("ExecuteArea"))
+                {
+                    child.tag = "Execute Area";
+                }
+                else if (child.name.Contains("ExpressionArea"))
+                {
+                    child.tag = "Expression Area";
+                }
+                SetTagAllChildren(child);
+            }
+        }
+    }
 }

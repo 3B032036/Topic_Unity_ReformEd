@@ -6,11 +6,12 @@ public class IfPuzzle : MonoBehaviour
 {
     //if拼圖
     [SerializeField] private GameObject ConditionalArea;
-    [SerializeField] private GameObject ExecuteArea;
+    [SerializeField] private GameObject ExecuteArea_if;
+    [SerializeField] private GameObject ExecuteArea_else;
 
     private void Start() {
         transform.tag = "Execute Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     public void Execute()
@@ -27,34 +28,81 @@ public class IfPuzzle : MonoBehaviour
             {
                 TrueExecute(GetHowMuchChild());
             }
+            else
+            {
+                if (ExecuteArea_else != null)
+                {
+                    Debug.Log("123");
+                    FalseExecute(GetHowMuchChild());
+                }
+            }
         }
     }
 
     public int GetHowMuchChild()
     {
-        return ExecuteArea.transform.childCount - 1; //這邊為了跟for做一致索引值，所以將子物件索引值-1，一致化
+        return ExecuteArea_if.transform.childCount - 1; //這邊為了跟for做一致索引值，所以將子物件索引值-1，一致化
     }
 
     public void TrueExecute(int childcount)
     {
-        if (childcount > 0)
+        if (childcount > -1)
         {
             for (int i = 0; i <= childcount; i++)
             {
-                if (ExecuteArea.transform.GetChild(i).tag == "Execute Statement Puzzle")
+                if (ExecuteArea_if.transform.GetChild(i).tag == "Execute Statement Puzzle")
                 {
-                    if (ExecuteArea.transform.GetChild(i).TryGetComponent<IfPuzzle>(out IfPuzzle ifpuzzle))
+                    if (ExecuteArea_if.transform.GetChild(i).TryGetComponent<IfPuzzle>(out IfPuzzle ifpuzzle))
                     {
                         ifpuzzle.Execute();
                     }
-                    else if ((ExecuteArea.transform.GetChild(i).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
+                    else if ((ExecuteArea_if.transform.GetChild(i).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
                     {
                         forpuzzle.Execute();
                     }
+                    else if((ExecuteArea_if.transform.GetChild(i).TryGetComponent<VariablePuzzle>(out VariablePuzzle variablePuzzle)))
+                    {
+                        variablePuzzle.Execute();
+                    }
+                    /*
+                    else if ((ExecuteArea_if.transform.GetChild(i).TryGetComponent<FreePuzzle>(out FreePuzzle freepuzzle)))
+                    {
+                        //freepuzzle.Execute();
+                    }
+                    */
                 }
             }
         }
     }
+
+    public void FalseExecute(int childcount)
+    {
+        Debug.Log("456");
+        if (childcount > -1)
+        {
+            for (int i = 0; i <= childcount; i++)
+            {
+                if (ExecuteArea_else.transform.GetChild(i).tag == "Execute Statement Puzzle")
+                {
+                    if (ExecuteArea_else.transform.GetChild(i).TryGetComponent<IfPuzzle>(out IfPuzzle ifpuzzle))
+                    {
+                        ifpuzzle.Execute();
+                    }
+                    else if ((ExecuteArea_else.transform.GetChild(i).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
+                    {
+                        forpuzzle.Execute();
+                    }
+                    /*
+                    else if ((ExecuteArea_else.transform.GetChild(i).TryGetComponent<FreePuzzle>(out FreePuzzle freepuzzle)))
+                    {
+                        //freepuzzle.Execute();
+                    }
+                    */
+                }
+            }
+        }
+    }
+
 
     private void ReturnErrorToStartBox(string text)
     {

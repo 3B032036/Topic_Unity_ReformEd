@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ForPuzzle : MonoBehaviour
 {
     //for拼圖
-    [SerializeField] private GameObject RepeatCounter;
     [SerializeField] private GameObject ExecuteArea;
+    [SerializeField] private GameObject ExpressionArea_1;
 
     private void Start() {
         transform.tag = "Execute Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     public void Execute()
@@ -19,35 +20,66 @@ public class ForPuzzle : MonoBehaviour
         bool IsExecute = IsTrueExecute();
         if (IsExecute == true)
         {
-            if (RepeatCounter.transform.childCount == 0)
+            if (ExpressionArea_1.transform.childCount == 0)
             {
-                ReturnErrorToStartPuzzle("For裡面並無子物件");
+                ReturnErrorToStartPuzzle("For未執行");
                 return;
             }
-            if (RepeatCounter.transform.GetChild(0).TryGetComponent<ExpressionPuzzle>(out ExpressionPuzzle expressionpuzzle))
+
+            var expressionPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ArrayPuzzle>();
+
+            int RepeatCounter = 0;
+            if (expressionPuzzle != null)
             {
-                for (int i = 1; i <= expressionpuzzle.Expression(); i++)
-                {
+                RepeatCounter = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                RepeatCounter = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                RepeatCounter = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                RepeatCounter = 0; // 如果都為 null，設置為 0
+            }
+
+            if (RepeatCounter > 0)
+            {
+                for (int i = 1; i <= RepeatCounter; i++)
+                {   
                     Debug.Log("For開始執行" + i + "次");
                     int ExecuteChildCount = ExecuteArea.transform.childCount - 1;
-                    if (ExecuteChildCount > 0)
+                    if (ExecuteChildCount > -1)
                     {
                         for (int j = 0; j <= ExecuteChildCount; j++)
                         {
                             if (ExecuteArea.transform.GetChild(j).tag == "Execute Statement Puzzle")
                             {
-                                if (ExecuteArea.transform.GetChild(j).TryGetComponent<IfPuzzle>(out IfPuzzle ifpuzzle))
+                                if (ExecuteArea.transform.GetChild(j).TryGetComponent<IfPuzzle>(out IfPuzzle ifpuzzle_))
                                 {
-                                    ifpuzzle.Execute();
+                                    ifpuzzle_.Execute();
                                 }
-                                else if ((ExecuteArea.transform.GetChild(j).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle)))
+                                else if ((ExecuteArea.transform.GetChild(j).TryGetComponent<ForPuzzle>(out ForPuzzle forpuzzle_)))
                                 {
-                                    forpuzzle.Execute();
+                                    forpuzzle_.Execute();
                                 }
-                                else if((ExecuteArea.transform.GetChild(j).TryGetComponent<VariablePuzzle>(out VariablePuzzle variablePuzzle)))
+                                else if((ExecuteArea.transform.GetChild(j).TryGetComponent<VariablePuzzle>(out VariablePuzzle variablePuzzle_)))
                                 {
-                                    variablePuzzle.Execute();
+                                    print("進入variablePuzzle_");
+                                    variablePuzzle_.Execute();
                                 }
+
+                                /*
+                                else if ((ExecuteArea.transform.GetChild(j).TryGetComponent<FreePuzzle>(out FreePuzzle freepuzzle)))
+                                {
+                                    //freepuzzle.Execute();
+                                }
+                                */
                             }
                         }
                     }
@@ -56,9 +88,10 @@ public class ForPuzzle : MonoBehaviour
         }
     }
 
-    IEnumerator ExampleCoroutine()
+    IEnumerator DelayMethod(float delayTime)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(delayTime);
+        print("delay");
     }
 
     private bool IsTrueExecute()

@@ -28,7 +28,7 @@ public class BlockCtrlHandler : MonoBehaviour
     {
         
     }
-
+/*
     public void SetTagAllChildren(Transform parent) 
     {
         if (parent.childCount > 0) 
@@ -51,7 +51,7 @@ public class BlockCtrlHandler : MonoBehaviour
             }
         }
     }
-
+*/
 
 
 

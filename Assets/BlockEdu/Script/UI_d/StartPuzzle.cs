@@ -10,7 +10,7 @@ public class StartPuzzle : MonoBehaviour
     
     private void Start() {
         //transform.tag = "Execute Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     private void OnTransformChildrenChanged() {
@@ -24,6 +24,7 @@ public class StartPuzzle : MonoBehaviour
 
     public void Execute()
     {
+        GameObject.Find("PrintPanel").transform.Find("IndexPanel").GetComponentInChildren<Text>().text = $"";
         int ExecuteChildCount = ExecuteArea.transform.childCount - 1;
         if(ExecuteChildCount < 0)
         {

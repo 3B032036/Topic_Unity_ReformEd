@@ -16,7 +16,7 @@ public class ConditonalPuzzle : MonoBehaviour
 
     private void Start() {
         transform.tag = "Conditional Statement Puzzle";
-        FindObjectOfType<BlockCtrlHandler>().SetTagAllChildren(this.gameObject.transform);
+        FindObjectOfType<ItemOnDrag>().SetTagAllChildren(this.gameObject.transform);
     }
 
     public void Execute()
@@ -30,7 +30,28 @@ public class ConditonalPuzzle : MonoBehaviour
         Debug.Log("Conditonal已執行");
         if (ExpressionArea_1 != null && ExpressionArea_1.transform.childCount > 0)
         {   
-            var1 = ExpressionArea_1.GetComponentInChildren<ExpressionPuzzle>().Expression();
+            var expressionPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_1.transform.GetChild(0).GetComponent<ArrayPuzzle>();
+
+            int var1 = 0;
+            if (expressionPuzzle != null)
+            {
+                var1 = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                var1 = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                var1 = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                var1 = 0; // 如果都為 null，設置為 0
+            }
+
         }
         else
         {
@@ -39,7 +60,27 @@ public class ConditonalPuzzle : MonoBehaviour
 
         if (ExpressionArea_2 != null && ExpressionArea_2.transform.childCount > 0)
         {   
-            var2 = ExpressionArea_2.GetComponentInChildren<ExpressionPuzzle>().Expression();
+            var expressionPuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<ExpressionPuzzle>();
+            var variablePuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<VariablePuzzle>();
+            var arrayPuzzle = ExpressionArea_2.transform.GetChild(0).GetComponent<ArrayPuzzle>();
+
+            int var2 = 0;
+            if (expressionPuzzle != null)
+            {
+                var2 = expressionPuzzle.Expression();
+            }
+            else if (variablePuzzle != null)
+            {
+                var2 = variablePuzzle.Expression();
+            }
+            else if (arrayPuzzle != null)
+            {
+                var2 = arrayPuzzle.Expression();
+            } 
+            else
+            {
+                var2 = 0; // 如果都為 null，設置為 0
+            }
         }
         else
         {
